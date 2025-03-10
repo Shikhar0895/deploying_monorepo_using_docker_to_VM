@@ -11,18 +11,24 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@prisma/client": "6.4.1",
     "@repo/ui": "workspace:*",
+    "@tailwindcss/postcss": "^4.0.12",
     "next": "^15.2.1",
+    "postcss": "^8.5.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.12"
   },
   "devDependencies": {
+    "@repo/db": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.13.9",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "eslint": "^9.21.0",
+    "react-icons": "^5.5.0",
     "typescript": "5.8.2"
   }
 }

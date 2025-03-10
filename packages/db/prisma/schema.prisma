@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id        String   @id @unique @default(cuid())
+  username  String   @unique
+  password  String
+  name      String?
+  photo     String?
+  email     String?
+  role      Role?
+  avatar    String?
+  refreshToken String?
+  createdAt DateTime @default(now())
+  roomMembers RoomMembers[] 
+  InvitesFrom      Invites[] @relation("UsersFromRelation")
+  invitesTo        Invites[] @relation("UsersToRelation")
+  RoomAdminsId            Rooms[]  @relation("AdminUserId")
+  RoomAdminUsername       Rooms[]  @relation("AdminUsername")
+  ChatAdminsId            Chats[]  @relation("AdminUserId")
+  ChatAdminUsername       Chats[]  @relation("AdminUsername")
+
+}
+
+model Rooms {
+  id                 String   @id @unique @default(cuid())
+  slug               String   @unique
+  adminId            String
+  adminUsername      String     
+  createdAt          DateTime @default(now())
+  MembersCount       Int     @default(0)
+  AdminUserId        Users @relation("AdminUserId", fields: [adminId], references: [id])
+  AdminUsername      Users @relation("AdminUsername", fields: [adminUsername], references: [username])
+  messages           messages[]
+  roomMembers        RoomMembers[] 
+  invites            Invites[]
+  @@unique([adminId, slug])
+}
+
+model Chats {
+  id        Int   @id @unique @default(autoincrement())
+  RoomId    String
+  adminId   String
+  adminUsername String
+  createdAt DateTime @default(now())
+  AdminUserId    Users @relation("AdminUserId", fields: [adminId], references: [id])
+  AdminUsername    Users @relation("AdminUsername", fields: [adminUsername], references: [username])
+  messages  messages[]
+}
+
+model messages {
+  id        String   @id @unique @default(cuid())
+  from      String
+  createdAt DateTime @unique @default(now())
+  chatId    Int
+  roomId    String
+  chat      Chats    @relation(fields: [chatId],references: [id] )
+  room      Rooms    @relation(fields: [roomId], references: [id])
+}
+
+model Invites {
+  id            String @id @unique @default(cuid())
+  sender        String 
+  recipient     String
+  roomId        String 
+  room          Rooms @relation(fields: [roomId], references: [id])
+  status        InviteStatus @default(Pending)
+  createdAt     DateTime @default(now())
+  userFrom      Users @relation( "UsersFromRelation" ,fields: [sender], references: [id])
+  userTo        Users @relation( "UsersToRelation" ,fields: [recipient], references: [id])
+  @@unique([sender, recipient, roomId])
+}
+
+model RoomMembers {
+  id String @id @unique @default(cuid())
+  userId String
+  roomId String
+  joinedAt DateTime @default(now())
+  users   Users @relation(fields: [userId], references: [id])
+  room    Rooms @relation(fields: [roomId], references: [id])
+  @@unique([roomId,userId])
+}
+
+enum Role {
+  admin
+  user
+}
+
+enum InviteStatus {
+  Pending
+  accepted
+  denied
+}

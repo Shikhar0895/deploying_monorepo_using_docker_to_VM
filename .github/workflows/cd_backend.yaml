@@ -24,5 +24,5 @@ jobs:
           context: .
           file: ./docker/dockerfile.http
           push: true
-          tags: deployingToVMusingCICDtutorialHTTP:${{ github.sha }}
+          tags: deploytodockerhubtutorial:${{ github.sha }}
         ## Step to deploy this a VM

@@ -20,5 +20,7 @@ jobs:
         with:
           context: .
           file: ./docker/dockerfile.frontend
+          build-args: |
+            DB_URL=${{secrets.DATABASE_URL}}
           push: true
           tags: shikhar0895/frontend:${{ github.sha }}

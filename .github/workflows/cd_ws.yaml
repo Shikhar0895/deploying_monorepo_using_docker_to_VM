@@ -2,9 +2,8 @@ name: deploy WS server
 on:
   push:
     branches: [main]
-
 jobs:
-  build:
+  build: deploy ws server
     runs-on: ubuntu-latest
 
     steps:

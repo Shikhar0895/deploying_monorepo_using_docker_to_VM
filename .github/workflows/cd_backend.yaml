@@ -1,0 +1,28 @@
+# Build the docker image
+## Push the docker image to docker hub
+## SSH into VM and start the new image
+name: DEPLOY the backend
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkkout the code
+        uses: actions/checkout@v2
+
+      - name: DOCKER login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./docker/dockerfile.http
+          push: true
+          tags: deployingToVMusingCICDtutorialHTTP:${{ github.sha }}
+        ## Step to deploy this a VM

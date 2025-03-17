@@ -12,6 +12,10 @@ prismaClient
         app is listening on http://localhost:${process.env.PORT}`);
     });
   })
-  .catch((e) => {
+  .catch((e: any) => {
     console.error(e);
   });
+
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Welcome to your express http server" });
+});

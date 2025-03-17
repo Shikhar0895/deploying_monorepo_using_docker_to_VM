@@ -20,12 +20,9 @@ importers:
 
   apps/http-server:
     dependencies:
-      '@types/express':
-        specifier: ^5.0.0
-        version: 5.0.0
-      '@types/node':
-        specifier: ^22.13.9
-        version: 22.13.9
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -33,18 +30,24 @@ importers:
         specifier: ^4.21.2
         version: 4.21.2
     devDependencies:
-      '@repo/db':
-        specifier: workspace:*
-        version: link:../../packages/db
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.0
+      '@types/node':
+        specifier: ^22.13.9
+        version: 22.13.9
 
   apps/web:
     dependencies:
       '@prisma/client':
         specifier: 6.4.1
         version: 6.4.1(prisma@6.4.1(typescript@5.8.2))(typescript@5.8.2)
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -67,9 +70,6 @@ importers:
         specifier: ^4.0.12
         version: 4.0.12
     devDependencies:
-      '@repo/db':
-        specifier: workspace:*
-        version: link:../../packages/db
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -97,9 +97,9 @@ importers:
 
   apps/ws-server:
     dependencies:
-      '@types/ws':
-        specifier: ^8.18.0
-        version: 8.18.0
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -107,12 +107,12 @@ importers:
         specifier: ^8.18.1
         version: 8.18.1
     devDependencies:
-      '@repo/db':
-        specifier: workspace:*
-        version: link:../../packages/db
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@types/ws':
+        specifier: ^8.18.0
+        version: 8.18.0
 
   packages/db:
     dependencies:

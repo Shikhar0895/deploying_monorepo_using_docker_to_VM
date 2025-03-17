@@ -16,7 +16,7 @@ wss.on("connection", async function (socket) {
         socket.send("Hey there");
       });
     })
-    .catch((e) => {
+    .catch((e: any) => {
       console.error(e);
     });
 });

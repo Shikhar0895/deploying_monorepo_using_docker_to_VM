@@ -8,10 +8,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "start:frontend": "node server.js"
   },
   "dependencies": {
     "@prisma/client": "6.4.1",
+    "@repo/db": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tailwindcss/postcss": "^4.0.12",
     "next": "^15.2.1",
@@ -21,7 +23,6 @@
     "tailwindcss": "^4.0.12"
   },
   "devDependencies": {
-    "@repo/db": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.13.9",

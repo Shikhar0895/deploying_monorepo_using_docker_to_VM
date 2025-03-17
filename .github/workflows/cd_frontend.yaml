@@ -2,22 +2,21 @@ name: deploy frontend
 on:
   push:
     branches: [main]
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: DOCKER login
-      - uses: docker/login-action@v2
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: BUILD and push
-      - uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v4
         with:
           context: .
           file: ./docker/dockerfile.frontend

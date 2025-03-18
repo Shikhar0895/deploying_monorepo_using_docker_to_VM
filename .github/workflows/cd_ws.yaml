@@ -22,3 +22,7 @@ jobs:
           file: ./docker/dockerfile.ws
           push: true
           tags: shikhar0895/ws:${{ github.sha }}
+      - name: Deploy frontend to the VM
+        run: |
+          echo "${{secrets.EC2_DEV_SERVER_PRIVKEY}}" > ssh_key && chmod 700 ssh_key
+          ssh -o StrictHostKeyChecking=no -i ssh_key ubuntu@ec2-43-204-39-51.ap-south-1.compute.amazonaws.com -t "docker pull shikhar0895/frontend:${{github.sha}} && docker stop ws-server && docker rm -f ws-server && docker run --name ws-server -d -e DATABASE_URL=${{DATABASE_URL}} -e PORT=8080 -p 8080:8080 shikhar0895/ws:${{github.sha}}"
